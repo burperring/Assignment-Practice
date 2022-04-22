@@ -84,7 +84,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     switch (message)
     {
     case WM_CREATE:
-        SetTimer(hWnd, 0, 20, NULL);//°ÔÀÓ ·çÇÁ ¸¸µé±â(20/1000ÃÊ ¸¶´Ù WM_TIMER¸Ş¼¼Áö¸¦ ¹ß»ı)
+        SetTimer(hWnd, 0, 20, NULL);//ê²Œì„ ë£¨í”„ ë§Œë“¤ê¸°(20/1000ì´ˆ ë§ˆë‹¤ WM_TIMERë©”ì„¸ì§€ë¥¼ ë°œìƒ)
         break;
     case WM_PAINT:
     {
@@ -94,10 +94,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         MoveToEx(hdc, posX, posY, NULL);
         LineTo(hdc, posX + x * lineLength, posY + y * lineLength);
 
-        //ÃÑ¾Ë±×·ÁÁÖ±â
+        //ì´ì•Œê·¸ë ¤ì£¼ê¸°
         for (int i = 0;i < BULLET_SIZE;i++)
         {
-            if (bullets[i].isUse == 1)//ÃÑ¾ËÀÌ »ç¿ëÁßÀÏ¶§¸¸ ±×·ÁÁÖ±â
+            if (bullets[i].isUse == 1)//ì´ì•Œì´ ì‚¬ìš©ì¤‘ì¼ë•Œë§Œ ê·¸ë ¤ì£¼ê¸°
             {
                 Ellipse(hdc, bullets[i].posx - 5, bullets[i].posy - 5, bullets[i].posx + 5, bullets[i].posy + 5);
             }
@@ -128,20 +128,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         int i;
         for (i = 0;i < BULLET_SIZE;i++)
         {
-            if (bullets[i].isUse == 0)//»ç¿ëÁßÀÌÁö ¾Ê´Â ÃÑ¾Ë ¾Ë¾Æ³»±â
+            if (bullets[i].isUse == 0)//ì‚¬ìš©ì¤‘ì´ì§€ ì•ŠëŠ” ì´ì•Œ ì•Œì•„ë‚´ê¸°
             {
                 break;
             }
         }
 
-        if (i < BULLET_SIZE)//»ç¿ëÁßÀÌÁö ¾Ê´Â ÃÑ¾ËÀÌ ÀÖ´Ù¸é
+        if (i < BULLET_SIZE)//ì‚¬ìš©ì¤‘ì´ì§€ ì•ŠëŠ” ì´ì•Œì´ ìˆë‹¤ë©´
         {
-            bullets[i].isUse = 1;//»ç¿ëÇÔÀ¸·Î ¹Ù²ãÁÖ°í
+            bullets[i].isUse = 1;//ì‚¬ìš©í•¨ìœ¼ë¡œ ë°”ê¿”ì£¼ê³ 
             bullets[i].posx = posX + x * lineLength;
-            bullets[i].posy = posY + y * lineLength;//ÃÑ¾ËÀÇ ½ÃÀÛÀ§Ä¡
+            bullets[i].posy = posY + y * lineLength;//ì´ì•Œì˜ ì‹œì‘ìœ„ì¹˜
 
             bullets[i].velx = x * BULLET_SPEED;
-            bullets[i].vely = y * BULLET_SPEED;//ÃÑ¾Ë ¿òÁ÷ÀÏ °ª
+            bullets[i].vely = y * BULLET_SPEED;//ì´ì•Œ ì›€ì§ì¼ ê°’
         }
         break;
     }
@@ -160,21 +160,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
         RECT rect;
 
-        GetClientRect(hWnd, &rect);//È­¸é Å©±â ¾ò¾î¿À±â
+        GetClientRect(hWnd, &rect);//í™”ë©´ í¬ê¸° ì–»ì–´ì˜¤ê¸°
 
-        //ÃÑ¾Ë ¿òÁ÷ÀÌ±â
+        //ì´ì•Œ ì›€ì§ì´ê¸°
         int i;
         for (i = 0;i < BULLET_SIZE;i++)
         {
-            if (bullets[i].isUse == 1)//»ç¿ëÁßÀÎ(¿òÁ÷ÀÌ°í ÀÖ´Â ÃÑ¾ËÀÌ¶ó¸é)
+            if (bullets[i].isUse == 1)//ì‚¬ìš©ì¤‘ì¸(ì›€ì§ì´ê³  ìˆëŠ” ì´ì•Œì´ë¼ë©´)
             {
                 bullets[i].posx += bullets[i].velx;
-                bullets[i].posy += bullets[i].vely;//ÃÑ¾ËÀ» ¿òÁ÷ÀÓ
+                bullets[i].posy += bullets[i].vely;//ì´ì•Œì„ ì›€ì§ì„
 
                 if (bullets[i].posx < 0 || bullets[i].posx > rect.right &&
-                    bullets[i].posy < 0 || bullets[i].posy > rect.bottom)//ÃÑ¾ËÀÌ È­¸éÀ» ¹ş¾î³ª¸é
+                    bullets[i].posy < 0 || bullets[i].posy > rect.bottom)//ì´ì•Œì´ í™”ë©´ì„ ë²—ì–´ë‚˜ë©´
                 {
-                    bullets[i].isUse = 0;//»ç¿ëÁßÁö
+                    bullets[i].isUse = 0;//ì‚¬ìš©ì¤‘ì§€
                 }
             }
         }
