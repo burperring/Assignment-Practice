@@ -15,16 +15,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
     HWND hwnd; // handle window
     MSG msg;   // message
     WNDCLASS WndClass;                                            // window class
-    WndClass.style = CS_HREDRAW | CS_VREDRAW;                     // Ãâ·Â ÇüÅÂ
-    WndClass.lpfnWndProc = WndProc;                               // ÇÁ·Î½ÃÀú ÇÔ¼ö µî·Ï
-    WndClass.cbClsExtra = 0;                                      // Å¬·¡½º ¿©ºĞ ¸Ş¸ğ¸®
-    WndClass.cbWndExtra = 0;                                      // À©µµ¿ì ¿©ºĞ ¸Ş¸ğ¸®
-    WndClass.hInstance = hInstance;                               // À©µµ ÀÎ½ºÅÏ½º
-    WndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);             // ¾ÆÀÌÄÜ
-    WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);               // Ä¿¼­
-    WndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH); // À©µµ¿ì ÃÊ±â ¹è°æ»ö ÁöÁ¤
-    WndClass.lpszMenuName = NULL;                                 // ¸Ş´º ÀÌ¸§
-    WndClass.lpszClassName = _T("WindowClass_1");                 // Å¬·¡½º ÀÌ¸§
+    WndClass.style = CS_HREDRAW | CS_VREDRAW;                     // ì¶œë ¥ í˜•íƒœ
+    WndClass.lpfnWndProc = WndProc;                               // í”„ë¡œì‹œì € í•¨ìˆ˜ ë“±ë¡
+    WndClass.cbClsExtra = 0;                                      // í´ë˜ìŠ¤ ì—¬ë¶„ ë©”ëª¨ë¦¬
+    WndClass.cbWndExtra = 0;                                      // ìœˆë„ìš° ì—¬ë¶„ ë©”ëª¨ë¦¬
+    WndClass.hInstance = hInstance;                               // ìœˆë„ ì¸ìŠ¤í„´ìŠ¤
+    WndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);             // ì•„ì´ì½˜
+    WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);               // ì»¤ì„œ
+    WndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH); // ìœˆë„ìš° ì´ˆê¸° ë°°ê²½ìƒ‰ ì§€ì •
+    WndClass.lpszMenuName = NULL;                                 // ë©”ë‰´ ì´ë¦„
+    WndClass.lpszClassName = _T("WindowClass_1");                 // í´ë˜ìŠ¤ ì´ë¦„
     RegisterClass(&WndClass);
     hwnd = CreateWindow(_T("WindowClass_1"), _T("WindowProgramming Study"), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, hInstance, NULL);
     ShowWindow(hwnd, nCmdShow);
@@ -58,7 +58,7 @@ int greenBall = 30;
 int redBall = 0;
 Ball pawn;
 Ball Actor[ActorCount];
-void checking() { // °ø °¹¼ö Ã¼Å©
+void checking() { // ê³µ ê°¯ìˆ˜ ì²´í¬
     int checknum = 0;
     for (int i = 0; i < 30; i++)
     {
@@ -72,7 +72,7 @@ void checking() { // °ø °¹¼ö Ã¼Å©
 
 }
 
-bool isHit_btb(Ball ball, Ball ball2) //°ø°ãÃÆÀ»¶§ ÆÇº°ÇÏ´Â ¼Ò½º2
+bool isHit_btb(Ball ball, Ball ball2) //ê³µê²¹ì³¤ì„ë•Œ íŒë³„í•˜ëŠ” ì†ŒìŠ¤2
 {
     float length = sqrt(((ball2.pos.x - ball.pos.x) * (ball2.pos.x - ball.pos.x)) + ((ball2.pos.y - ball.pos.y) * (ball2.pos.y - ball.pos.y)));
     if (length <= ball2.radius + ball.radius)
@@ -82,7 +82,7 @@ bool isHit_btb(Ball ball, Ball ball2) //°ø°ãÃÆÀ»¶§ ÆÇº°ÇÏ´Â ¼Ò½º2
     return false;
 }
 
-void InitActor(RECT area, Ball* ActorList, int Count)//°ø»ı¼ºÇÏ´Â ¼Ò½º
+void InitActor(RECT area, Ball* ActorList, int Count)//ê³µìƒì„±í•˜ëŠ” ì†ŒìŠ¤
 {
     srand((unsigned int)time(NULL));
     for (int i = 0; i < Count; i++)
@@ -92,7 +92,7 @@ void InitActor(RECT area, Ball* ActorList, int Count)//°ø»ı¼ºÇÏ´Â ¼Ò½º
         ActorList[i].radius = rand() % 31 + 20;
 
 
-        for (int a = 0; a <= i; a++)//°ø¾È°ãÄ¡°Ô ÇÏ´Â ¼Ò½º
+        for (int a = 0; a <= i; a++)//ê³µì•ˆê²¹ì¹˜ê²Œ í•˜ëŠ” ì†ŒìŠ¤
         {
             if (a != i)
             {
@@ -108,7 +108,7 @@ void InitActor(RECT area, Ball* ActorList, int Count)//°ø»ı¼ºÇÏ´Â ¼Ò½º
         ActorList[i].color = { 0, 255, 0 };
     }
 }
-void newgame() {//»õ·Î ±×·ÁÁÖ´Â ¼Ò½º
+void newgame() {//ìƒˆë¡œ ê·¸ë ¤ì£¼ëŠ” ì†ŒìŠ¤
 
     static RECT area;
     second = 0;
@@ -120,12 +120,12 @@ void newgame() {//»õ·Î ±×·ÁÁÖ´Â ¼Ò½º
     SetTimer(MainWnd, 1, 1, NULL);
     InvalidateRect(MainWnd, NULL, true);
 }
-DWORD WINAPI timecounting(LPVOID temp)//½Ã°£, °ø°¹¼ö Ãâ·ÂÇØÁÖ´Â ½º·¹µå
+DWORD WINAPI timecounting(LPVOID temp)//ì‹œê°„, ê³µê°¯ìˆ˜ ì¶œë ¥í•´ì£¼ëŠ” ìŠ¤ë ˆë“œ
 {
     HDC hdc;
 
     hdc = GetDC(MainWnd);
-    wsprintf(tmp, TEXT("½Ã°£ : %dÃÊ »¡°£»ö °ø : %d°³/ÃÊ·Ï»ö °ø : %d°³ "), second / 100, redBall, greenBall);
+    wsprintf(tmp, TEXT("ì‹œê°„ : %dì´ˆ ë¹¨ê°„ìƒ‰ ê³µ : %dê°œ/ì´ˆë¡ìƒ‰ ê³µ : %dê°œ "), second / 100, redBall, greenBall);
     TextOut(hdc, 10, 10, tmp, lstrlen(tmp));
     ReleaseDC(MainWnd, hdc);
     return 0;
@@ -170,7 +170,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
         if (redBall == 30)
         {
             KillTimer(MainWnd, 1);
-            wsprintf(tmp2, TEXT("Game Over!! \n½Ã°£ : %dÃÊ \n´Ù½ÃÇÏ½Ã°Ú½À´Ï±î?"), second / 100);
+            wsprintf(tmp2, TEXT("Game Over!! \nì‹œê°„ : %dì´ˆ \në‹¤ì‹œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?"), second / 100);
 
             int gostop = MessageBox(MainWnd, tmp2, TEXT("Game Over"), MB_YESNO);
             if (gostop == IDNO) {
